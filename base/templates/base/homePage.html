@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        #id_header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-top: 0;
+        }
+
+        .todo-item {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        #id_item_title {
+            font-weight: bold;
+            font-size: 18px;
+            color: #333;
+        }
+
+        #id_item_description {
+            color: #666;
+        }
+
+        #id_item_completed {
+            color: #4caf50; /* Green color for completed tasks */
+        }
+
+        .action-links {
+            margin-top: 10px;
+        }
+
+        .action-links a {
+            margin-right: 10px;
+            text-decoration: none;
+            color: #007bff; /* Blue color for links */
+        }
+    </style>
+</head>
+<body>
+    <div id="id_header">
+        <a href="{% url 'create-item' %}">Create New Task</a>
+    </div>
+    <h1>TODO List</h1>
+    <br>
+
+    {% for item in items %}
+    <div class="todo-item">
+        <div id="id_item_title">Title: {{ item.title }}</div>
+        <div id="id_item_completed">Completed: {% if item.completed %}Yes{% else %}No{% endif %}</div>
+        <div id="id_item_description">Description: {{ item.description }}</div>
+        <div class="action-links">
+            <a href="{% url 'delete-item' item_id=item.id %}">Delete</a>
+            <a href="{% url 'update-item' item_id=item.id %}">Update</a>
+        </div>
+    </div>
+    {% endfor %}
+</body>
+</html>
